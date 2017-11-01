@@ -1,0 +1,42 @@
+plugins {
+    id 'idea'
+}
+
+defaultTasks 'cleanAll', 'buildAll'
+
+task cleanAll {
+    dependsOn gradle.includedBuild('boothub-root').task(':clean')
+    dependsOn gradle.includedBuild('boothub-root').task(':boothub-core:clean')
+    dependsOn gradle.includedBuild('boothub-root').task(':boothub-gradle-test:clean')
+    dependsOn gradle.includedBuild('boothub-root').task(':boothub-web:clean')
+    dependsOn gradle.includedBuild('boothub-template-simple-java').task(':clean')
+    dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':clean')
+    dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':clean')
+}
+
+task buildAll {
+    dependsOn gradle.includedBuild('boothub-root').task(':build')
+    dependsOn gradle.includedBuild('boothub-template-simple-java').task(':build')
+    dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':build')
+    dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':build')
+}
+
+tasks.addRule('Pattern: do-<task>-<project>[#<module>] (Example: do-build-root or do-build-root#boothub-web)') { String rule ->
+    if(rule.startsWith('do-')) {
+        def ruleName = rule - 'do-'
+        def idx = ruleName.indexOf('-')
+        if(idx > 0) {
+            def taskName = ':' + ruleName.substring(0, idx)
+            def buildName = 'boothub-' + ruleName.substring(idx + 1)
+            def hashIdx = buildName.indexOf('#')
+            if(hashIdx > 0) {
+                taskName = ':boothub-' + buildName.substring(hashIdx + 1) + taskName
+                buildName = buildName.substring(0, hashIdx)
+            }
+            println "**** Executing '$taskName' in '$buildName'"
+            task(rule) {
+                dependsOn gradle.includedBuild(buildName).task(taskName)
+            }
+        }
+    }
+}

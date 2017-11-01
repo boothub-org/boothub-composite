@@ -1,0 +1,6 @@
+rootProject.name = 'boothub-composite'
+
+includeBuild '../boothub'
+includeBuild '../boothub-template-simple-java'
+includeBuild '../boothub-template-simple-groovy'
+includeBuild '../boothub-template-java-groovy'

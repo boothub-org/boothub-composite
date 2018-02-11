@@ -12,6 +12,7 @@ task cleanAll {
     dependsOn gradle.includedBuild('boothub-template-simple-java').task(':clean')
     dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':clean')
     dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':clean')
+    dependsOn gradle.includedBuild('boothub-meta-template').task(':clean')
 }
 
 task buildAll {
@@ -19,6 +20,7 @@ task buildAll {
     dependsOn gradle.includedBuild('boothub-template-simple-java').task(':build')
     dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':build')
     dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':build')
+    dependsOn gradle.includedBuild('boothub-meta-template').task(':build')
 }
 
 tasks.addRule('Pattern: do-<task>-<project>[#<module>] (Example: do-build-root or do-build-root#boothub-web)') { String rule ->

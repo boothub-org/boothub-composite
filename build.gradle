@@ -11,6 +11,7 @@ task cleanAll {
     dependsOn gradle.includedBuild('boothub-root').task(':boothub-web:clean')
     dependsOn gradle.includedBuild('boothub-template-simple-java').task(':clean')
     dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':clean')
+    dependsOn gradle.includedBuild('boothub-template-simple-kotlin').task(':clean')
     dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':clean')
     dependsOn gradle.includedBuild('boothub-meta-template').task(':clean')
 }
@@ -19,6 +20,7 @@ task buildAll {
     dependsOn gradle.includedBuild('boothub-root').task(':build')
     dependsOn gradle.includedBuild('boothub-template-simple-java').task(':build')
     dependsOn gradle.includedBuild('boothub-template-simple-groovy').task(':build')
+    dependsOn gradle.includedBuild('boothub-template-simple-kotlin').task(':build')
     dependsOn gradle.includedBuild('boothub-template-java-groovy').task(':build')
     dependsOn gradle.includedBuild('boothub-meta-template').task(':build')
 }
